@@ -20,6 +20,12 @@ public:
     //construct with an initialized List
     set_int(std::initializer_list<int> il);
 
+    set_int(const set_int& rhs);
+    set_int(set_int&& rhs) noexcept ;
+
+    set_int& operator=(const set_int& rhs);
+    set_int& operator=(set_int&& rhs) noexcept ;
+
     ~set_int() = default;
 
     set_int operator+(const set_int& rhs) const;
@@ -35,6 +41,7 @@ public:
 
 private:
     std::vector<int> m_elements;
+    std::size_t m_size;
 
 };
 

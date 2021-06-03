@@ -4,21 +4,46 @@
 
 #include "set_int.h"
 #include <algorithm>
-set_int::set_int() : m_elements(){
+set_int::set_int() : m_elements(),
+                     m_size(m_elements.size()){
 
 }
 
-set_int::set_int(const int &i) : m_elements{i}{
+set_int::set_int(const int &i) : m_elements{i},
+                                 m_size(m_elements.size()){
 
 }
 
-set_int::set_int(const int &n, const int &e) : m_elements(n, e){
+set_int::set_int(const int &n, const int &e) : m_elements(n, e),
+                                               m_size(m_elements.size()){
 
 }
 
-set_int::set_int(std::initializer_list<int> il) : m_elements{il}{
+set_int::set_int(std::initializer_list<int> il) : m_elements{il},
+                                                  m_size(m_elements.size()){
 
 }
+set_int::set_int(const set_int &rhs) : m_elements(rhs.m_elements),
+                                       m_size(m_elements.size()) {
+
+}
+
+set_int::set_int(set_int &&rhs) noexcept : m_elements(std::move(rhs.m_elements)) ,
+                                 m_size(m_elements.size()) {
+
+}
+
+set_int& set_int::operator=(const set_int &rhs) {
+    m_elements = rhs.m_elements;
+    m_size = rhs.m_size;
+    return *this;
+}
+set_int& set_int::operator=(set_int &&rhs) noexcept {
+    m_elements = std::move(rhs.m_elements);
+    m_size = std::move(rhs.m_size);
+    return *this;
+}
+
 
 bool set_int::operator==(const set_int &rhs) const {
     for(auto i : m_elements){
@@ -36,12 +61,14 @@ bool set_int::operator!=(const set_int &rhs) const {
 
 set_int  set_int::operator+(const set_int &rhs) const {
 
+    return *this;
+
 }
 set_int  set_int::operator-(const set_int &rhs) const {
-
+    return *this;
 }
 set_int  set_int::operator*(const set_int &rhs) const {
-
+    return *this;
 }
 
 
