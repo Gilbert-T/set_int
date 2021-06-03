@@ -3,4 +3,4 @@ project(set_int)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(set_int main.cpp set_int.cpp)
+add_executable(set_int main.cpp set_int.cpp set_int_test.cpp)

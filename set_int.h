@@ -20,6 +20,8 @@ public:
     //construct with an initialized List
     set_int(std::initializer_list<int> il);
 
+    ~set_int() = default;
+
     set_int operator+(const set_int& rhs) const;
     set_int operator-(const set_int& rhs) const;
     set_int operator*(const set_int& rhs) const;
