@@ -4,6 +4,8 @@
 int main() {
 
     equal_test();
+    print_test();
+    add_set_test();
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }

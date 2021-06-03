@@ -6,6 +6,7 @@
 #define SET_INT_SET_INT_H
 #include <vector>
 #include <memory>
+#include <iostream>
 
 class set_int {
 public:
@@ -33,6 +34,7 @@ public:
     set_int operator*(const set_int& rhs) const;
     bool operator==(const set_int& rhs) const;
     bool operator!=(const set_int& rhs) const;
+    friend std::ostream& operator<<(std::ostream& os, const set_int& rhs);
 
     std::vector<set_int> getSubSet();
 

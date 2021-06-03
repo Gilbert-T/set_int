@@ -60,8 +60,14 @@ bool set_int::operator!=(const set_int &rhs) const {
 }
 
 set_int  set_int::operator+(const set_int &rhs) const {
-
-    return *this;
+    set_int tmp(*this);
+    for(auto i : rhs.m_elements){
+        if(std::find(tmp.m_elements.begin(), tmp.m_elements.end(), i) == tmp.m_elements.end()){
+            tmp.m_elements.push_back(i);
+            tmp.m_size = tmp.m_elements.size();
+        }
+    }
+    return tmp;
 
 }
 set_int  set_int::operator-(const set_int &rhs) const {
@@ -70,6 +76,15 @@ set_int  set_int::operator-(const set_int &rhs) const {
 set_int  set_int::operator*(const set_int &rhs) const {
     return *this;
 }
+std::ostream& operator<<(std::ostream& os, const set_int& rhs){
+    os << "[";
+    for(int i = 0; i < rhs.m_size; ++i){
+        os << rhs.m_elements[i] << (i == rhs.m_size - 1 ? "" : " ");
+    }
+    os << "]";
+    return os;
+}
+
 
 
 
@@ -77,41 +92,43 @@ std::size_t set_int::Size() {
     return m_elements.size();
 }
 std::vector<set_int> set_int::getSubSet() {
-//    std::vector<set_int> result;
-//    for(int i = 0; i < m_elements.size(); ++i){
-//        if(i == 0){
-//            set_int empty;
-//            result.push_back(empty);
-//            result.push_back(m_elements);
-//        }
-//        if(i == m_elements.size() - 1){
-//            result.push_back(m_elements);
-//            set_int empty;
-//            result.push_back(empty);
-//        }
-//        //select one
-//        for(int j = 0; j < m_elements.size(); ++j){
-//            set_int tmp(m_elements[j]);
-//            result.push_back(tmp);
-//        }
-//
-//        //select two
-//        for(int i = 0; i < m_elements.size(); ++i){
-//            set_int first(m_elements[i])
-//            set_int Second = *this - first;
-//            for(int j = 0; j < Second.m_elements.size())
-//        }
-//
-//
+    std::vector<set_int> result;
+    for(int i = 0; i < m_elements.size(); ++i){
+        if(i == 0){
+            set_int empty;
+            result.push_back(empty);
+            result.push_back(*this);
+        }
+        if(i == m_elements.size() - 1){
+            result.push_back(*this);
+            set_int empty;
+            result.push_back(empty);
+        }
+        //select one
+        for(int j = 0; j < m_elements.size(); ++j){
+            set_int tmp(m_elements[j]);
+            result.push_back(tmp);
+        }
+
+        //select two
+        for(int i = 0; i < m_elements.size(); ++i){
+            set_int first(m_elements[i]);
+            set_int Second = *this - first;
+            for(int j = 0; j < Second.m_elements.size(); ++j){
+
+            }
+        }
+
+
 //        set_int
-//
-//    }
-//    if(m_elements.size() == 1){
-//        set_int empty;
-//        result.push_back(empty);
-//        result.push_back(m_elements);
-//        return result;
-//    }else{
-//
-//    }
+
+    }
+    if(m_elements.size() == 1){
+        set_int empty;
+        result.push_back(empty);
+        result.push_back(*this);
+        return result;
+    }else{
+
+    }
 }
