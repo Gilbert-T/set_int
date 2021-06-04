@@ -4,6 +4,7 @@
 
 #include "set_int.h"
 #include <algorithm>
+#include <bitset>
 set_int::set_int() : m_elements(),
                      m_size(m_elements.size()){
 
@@ -71,10 +72,24 @@ set_int  set_int::operator+(const set_int &rhs) const {
 
 }
 set_int  set_int::operator-(const set_int &rhs) const {
-    return *this;
+    set_int tmp;
+    for(auto i : m_elements){
+        if(std::find(rhs.m_elements.begin(), rhs.m_elements.end(), i) == rhs.m_elements.end()){
+            tmp.m_elements.push_back(i);
+            tmp.m_size = tmp.m_elements.size();
+        }
+    }
+    return tmp;
 }
 set_int  set_int::operator*(const set_int &rhs) const {
-    return *this;
+    set_int tmp;
+    for(auto i : m_elements){
+        if(std::find(rhs.m_elements.begin(), rhs.m_elements.end(), i) != rhs.m_elements.end()){
+            tmp.m_elements.push_back(i);
+            tmp.m_size = tmp.m_elements.size();
+        }
+    }
+    return tmp;
 }
 std::ostream& operator<<(std::ostream& os, const set_int& rhs){
     os << "[";
@@ -93,42 +108,16 @@ std::size_t set_int::Size() {
 }
 std::vector<set_int> set_int::getSubSet() {
     std::vector<set_int> result;
-    for(int i = 0; i < m_elements.size(); ++i){
-        if(i == 0){
-            set_int empty;
-            result.push_back(empty);
-            result.push_back(*this);
-        }
-        if(i == m_elements.size() - 1){
-            result.push_back(*this);
-            set_int empty;
-            result.push_back(empty);
-        }
-        //select one
-        for(int j = 0; j < m_elements.size(); ++j){
-            set_int tmp(m_elements[j]);
-            result.push_back(tmp);
-        }
-
-        //select two
-        for(int i = 0; i < m_elements.size(); ++i){
-            set_int first(m_elements[i]);
-            set_int Second = *this - first;
-            for(int j = 0; j < Second.m_elements.size(); ++j){
-
+    auto countOfSubSet = 1 << m_size;
+    for(int i = 0; i < countOfSubSet; ++i){
+        set_int tmp;
+        for(int j = 0; j < m_size; ++j){
+            if( (i & (1 << j))){
+                tmp.m_elements.push_back(m_elements[j]);
+                tmp.m_size = tmp.m_elements.size();
             }
         }
-
-
-//        set_int
-
+        result.push_back(tmp);
     }
-    if(m_elements.size() == 1){
-        set_int empty;
-        result.push_back(empty);
-        result.push_back(*this);
-        return result;
-    }else{
-
-    }
+   return result;
 }
